@@ -65,6 +65,27 @@ public class SauceDemoTestCases extends BrowserActions {
     }
 
     @Test
+    @Epic("Authentication")
+    @Feature("LogOut")
+    @Story("LogOut")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Test logout")
+    public void LogOut() throws InterruptedException {
+        Steps step1 = new Steps(driver);
+        step1.usernameFieldAction(correctUsernameData);
+        step1.passwordFieldAction(correctPasswordData);
+        step1.logInButtonAction();
+        Thread.sleep(2000);
+        step1.openBurgerMenuAction();
+        Thread.sleep(2000);
+        step1.logOutAction();
+        Thread.sleep(2000);
+        String actualUrl = driver.getCurrentUrl();
+        String expectedUrl = "https://www.saucedemo.com/";
+        Assert.assertEquals(actualUrl, expectedUrl);
+    }
+
+    @Test
     @Epic("Home Page")
     @Feature("Scroll")
     @Story("Scroll down")
@@ -83,8 +104,6 @@ public class SauceDemoTestCases extends BrowserActions {
         String actualURL = driver.getCurrentUrl();
         String expectedURL = "https://www.saucedemo.com/inventory.html";
         Assert.assertEquals(actualURL, expectedURL);
-
-
     }
 
     @Test
@@ -100,13 +119,12 @@ public class SauceDemoTestCases extends BrowserActions {
         step1.logInButtonAction();
         String actualURL = driver.getCurrentUrl();
         String expectedURL = "https://www.saucedemo.com/inventory.html";
-        Assert.assertEquals(actualURL,expectedURL);
+        Assert.assertEquals(actualURL, expectedURL);
         Thread.sleep(3000);
         step1.scrollDownAction();
         Thread.sleep(3000);
         step1.socialButtonClickable();
         Thread.sleep(7000);
-
     }
 
     @Test
@@ -122,10 +140,35 @@ public class SauceDemoTestCases extends BrowserActions {
         step1.logInButtonAction();
         String actualURL = driver.getCurrentUrl();
         String expectedURL = "https://www.saucedemo.com/inventory.html";
-        Assert.assertEquals(actualURL,expectedURL);
+        Assert.assertEquals(actualURL, expectedURL);
         Thread.sleep(3000);
         step1.addProductInCart();
         Thread.sleep(3000);
+    }
+
+    @Test
+    @Epic("Cart")
+    @Feature("remove products to cart")
+    @Story("Cart")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Test remove products from cart")
+    public void removeItemFromCart() throws InterruptedException {
+        Steps step1 = new Steps(driver);
+        step1.usernameFieldAction(correctUsernameData);
+        step1.passwordFieldAction(correctPasswordData);
+        step1.logInButtonAction();
+        Thread.sleep(2000);
+        step1.addProductInCart();
+        Thread.sleep(2000);
+        step1.goToCartAction();
+        Thread.sleep(1000);
+        step1.removeProductFromCart();
+        Thread.sleep(2000);
+        step1.continueShoppingFromCartAction();
+        Thread.sleep(2000);
+        String actualUrl = driver.getCurrentUrl();
+        String expectedUrl = "https://www.saucedemo.com/inventory.html";
+        Assert.assertEquals(actualUrl, expectedUrl);
     }
 
     @Test
@@ -160,7 +203,6 @@ public class SauceDemoTestCases extends BrowserActions {
         String actualUrl2 = driver.getCurrentUrl();
         String expectedUrl2 = "https://www.saucedemo.com/checkout-complete.html";
         Assert.assertEquals(actualUrl2, expectedUrl2);
-
     }
 
     @Test
@@ -187,55 +229,6 @@ public class SauceDemoTestCases extends BrowserActions {
         step1.continueToCheckOutAction();
         WebElement errorMessage = driver.findElement(By.className("error-button"));
         Assert.assertTrue(errorMessage.isDisplayed());
-
-
-    }
-    @Test
-    @Epic("Cart")
-    @Feature("remove products to cart")
-    @Story("Cart")
-    @Severity(SeverityLevel.CRITICAL)
-    @Description("Test remove products from cart")
-    public void removeItemFromCart () throws InterruptedException {
-        Steps step1 = new Steps(driver);
-        step1.usernameFieldAction(correctUsernameData);
-        step1.passwordFieldAction(correctPasswordData);
-        step1.logInButtonAction();
-        Thread.sleep(2000);
-        step1.addProductInCart();
-        Thread.sleep(2000);
-        step1.goToCartAction();
-        Thread.sleep(1000);
-        step1.removeProductFromCart();
-        Thread.sleep(2000);
-        step1.continueShoppingFromCartAction();
-        Thread.sleep(2000);
-        String actualUrl = driver.getCurrentUrl();
-        String expectedUrl = "https://www.saucedemo.com/inventory.html";
-        Assert.assertEquals(actualUrl,expectedUrl);
-
-    }
-
-    @Test
-    @Epic("Authentication")
-    @Feature("LogOut")
-    @Story("LogOut")
-    @Severity(SeverityLevel.CRITICAL)
-    @Description("Test logout")
-    public void LogOut() throws InterruptedException {
-        Steps step1 = new Steps(driver);
-        step1.usernameFieldAction(correctUsernameData);
-        step1.passwordFieldAction(correctPasswordData);
-        step1.logInButtonAction();
-        Thread.sleep(2000);
-        step1.openBurgerMenuAction();
-        Thread.sleep(2000);
-        step1.logOutAction();
-        Thread.sleep(2000);
-        String actualUrl = driver.getCurrentUrl();
-        String expectedUrl = "https://www.saucedemo.com/";
-        Assert.assertEquals(actualUrl,expectedUrl);
-
     }
 }
 
